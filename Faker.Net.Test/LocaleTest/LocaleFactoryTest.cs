@@ -9,7 +9,7 @@ namespace Faker.Net.Test.LocaleTest
         [TestMethod]
         public void TestCreate()
         {
-            Assert.AreEqual(typeof(En), LocaleFactory.Create(LocaleType.en).GetType());
+            Assert.AreEqual(typeof(Locales.En), LocaleFactory.Create(LocaleType.en).GetType());
         }
     }
 }

@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Drawing;
 using System.Linq;
-using System.Web.Security;
+using System.Security.Cryptography;
 using Faker.Random;
 
 namespace Faker
 {
     public class Internet : FakerBase
     {
+        private static char[] punctuations = "!@#$%^&*()_-+=[{]};:>|./?".ToCharArray();
+        private static char[] startingChars = new char[] { '<', '&' };
+
         public Internet()
         { }
         public Internet(LocaleType type) : base(type) { }
@@ -19,7 +22,117 @@ namespace Faker
         public virtual string GetPassword() { return this.GetPassword(15); }
         public virtual string GetPassword(int length)
         {
-            return Membership.GeneratePassword(length, length >> 2);
+            return this.GeneratePassword(length, length >> 2);
+        }
+
+        /// <summary>
+        /// Source taken from https://github.com/Microsoft/referencesource/tree/master/System.Web/Security
+        /// </summary>
+        private string GeneratePassword(int length, int numberOfNonAlphanumericCharacters)
+        {
+            if (length < 1 || length > 128)
+            {
+                throw new ArgumentException("Value should be between 1 and 128", nameof(length));
+            }
+
+            if (numberOfNonAlphanumericCharacters > length || numberOfNonAlphanumericCharacters < 0)
+            {
+                throw new ArgumentException("Value should be between 0 and length",
+                    nameof(numberOfNonAlphanumericCharacters));
+            }
+
+            string password;
+            int index;
+            byte[] buf;
+            char[] cBuf;
+            int count;
+
+            do
+            {
+                buf = new byte[length];
+                cBuf = new char[length];
+                count = 0;
+
+                (new RNGCryptoServiceProvider()).GetBytes(buf);
+
+                for (int iter = 0; iter < length; iter++)
+                {
+                    int i = (int)(buf[iter] % 87);
+                    if (i < 10)
+                        cBuf[iter] = (char)('0' + i);
+                    else if (i < 36)
+                        cBuf[iter] = (char)('A' + i - 10);
+                    else if (i < 62)
+                        cBuf[iter] = (char)('a' + i - 36);
+                    else
+                    {
+                        cBuf[iter] = punctuations[i - 62];
+                        count++;
+                    }
+                }
+
+                if (count < numberOfNonAlphanumericCharacters)
+                {
+                    int j, k;
+                    var rand = new System.Random();
+
+                    for (j = 0; j < numberOfNonAlphanumericCharacters - count; j++)
+                    {
+                        do
+                        {
+                            k = rand.Next(0, length);
+                        }
+                        while (!Char.IsLetterOrDigit(cBuf[k]));
+
+                        cBuf[k] = punctuations[rand.Next(0, punctuations.Length)];
+                    }
+                }
+
+                password = new string(cBuf);
+            }
+            while (IsDangerousString(password, out index));
+
+            return password;
+        }
+
+        private static bool IsDangerousString(string s, out int matchIndex)
+        {
+            //bool inComment = false;
+            matchIndex = 0;
+
+            for (int i = 0; ;)
+            {
+
+                // Look for the start of one of our patterns
+                int n = s.IndexOfAny(startingChars, i);
+
+                // If not found, the string is safe
+                if (n < 0) return false;
+
+                // If it's the last char, it's safe
+                if (n == s.Length - 1) return false;
+
+                matchIndex = n;
+
+                switch (s[n])
+                {
+                    case '<':
+                        // If the < is followed by a letter or '!', it's unsafe (looks like a tag or HTML comment)
+                        if (IsAtoZ(s[n + 1]) || s[n + 1] == '!' || s[n + 1] == '/' || s[n + 1] == '?') return true;
+                        break;
+                    case '&':
+                        // If the & is followed by a #, it's unsafe (e.g. &#83;)
+                        if (s[n + 1] == '#') return true;
+                        break;
+                }
+
+                // Continue searching
+                i = n + 1;
+            }
+        }
+
+        private static bool IsAtoZ(char c) {
+            return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z');
         }
 
         public virtual string GetAvatarURL()
@@ -92,7 +205,7 @@ namespace Faker
         {
             return Selector.GetRandomItemFromList(locale.DomainSuffix);
         }
-        
+
         private string randInt(int minValue, int maxValue)
         {
             return RandomProxy.Next(minValue, maxValue).ToString();

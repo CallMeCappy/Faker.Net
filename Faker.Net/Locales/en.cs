@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using System.Web.Script.Serialization;
+using Newtonsoft.Json;
 
 namespace Faker.Locales
 {
@@ -6389,15 +6389,13 @@ namespace Faker.Locales
             get { return new[] { "deposit", "withdrawal", "payment", "invoice" }; }
         }
         
-        public override Dictionary<string, Object> Currency
+        public override Dictionary<string, Currency> Currency
         {
             get
             {
-                var jsSerializer = new JavaScriptSerializer();
-                var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Faker.Locales.Resources.Finance.json");
+                var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Faker.Net.Locales.Resources.Finance.json");
                 stream.Position = 0;
-                var dic = jsSerializer.DeserializeObject(new StreamReader(stream).ReadToEnd());
-                return dic as Dictionary<string, Object>;
+                return JsonConvert.DeserializeObject<Dictionary<string, Currency>>(new StreamReader(stream).ReadToEnd());
             }
         }
         #endregion

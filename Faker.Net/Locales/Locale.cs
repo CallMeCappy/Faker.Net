@@ -53,7 +53,7 @@ namespace Faker.Locales
         public abstract string[] TransactionType { get; }
         // Use Object because the default JSON paser's bug. 
         // You need to use dynamic to resolve it as well.
-        public abstract Dictionary<string, Object> Currency { get; }
+        public abstract Dictionary<string, Currency> Currency { get; }
         
 
         // Hacker

@@ -1,90 +1,22 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{69E1708F-61CD-4A67-B1D2-7D32EEF78C4E}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Faker</RootNamespace>
-    <AssemblyName>Faker.Net</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
+    <TargetFrameworks>netstandard2.0;net451</TargetFrameworks>
+    <Version>1.1.0</Version>
+    <IsPackable>true</IsPackable>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
+    <None Remove="Locales\Resources\Finance.json" />
   </ItemGroup>
+
   <ItemGroup>
-    <Compile Include="Address.cs" />
-    <Compile Include="Company.cs" />
-    <Compile Include="Date.cs" />
-    <Compile Include="FakerBase.cs" />
-    <Compile Include="Finance.cs" />
-    <Compile Include="Hacker.cs" />
-    <Compile Include="Helpers.cs" />
-    <Compile Include="Image.cs" />
-    <Compile Include="Internet.cs" />
-    <Compile Include="Locales\De.cs" />
-    <Compile Include="Locales\En.cs" />
-    <Compile Include="Locales\En_BORK.cs" />
-    <Compile Include="Locales\En_CA.cs" />
-    <Compile Include="Locales\En_GB.cs" />
-    <Compile Include="Locales\EN_IND.cs" />
-    <Compile Include="Locales\En_US.cs" />
-    <Compile Include="Locales\Es.cs" />
-    <Compile Include="Locales\Fa.cs" />
-    <Compile Include="Locales\Fr.cs" />
-    <Compile Include="Locales\It.cs" />
-    <Compile Include="Locales\Ja.cs" />
-    <Compile Include="Locales\Ko.cs" />
-    <Compile Include="Locales\Locale.cs" />
-    <Compile Include="Locales\LocaleFactory.cs" />
-    <Compile Include="Locales\LocaleType.cs" />
     <EmbeddedResource Include="Locales\Resources\Finance.json" />
-    <Compile Include="Locales\En_Au.cs" />
-    <Compile Include="Lorem.cs" />
-    <Compile Include="Name.cs" />
-    <Compile Include="PhoneNumber.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Random\RandomFactory.cs" />
-    <Compile Include="Random\RandomProxy.cs" />
-    <Compile Include="Random\Selector.cs" />
   </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CSharp" Version="4.5.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+  </ItemGroup>
+  
 </Project>

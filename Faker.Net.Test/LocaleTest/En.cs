@@ -10,8 +10,8 @@ namespace Faker.Net.Test.LocaleTest
         {
             Locales.En en = new Locales.En();
             var dic = en.Currency;
-            dynamic result = dic["UAE Dirham"];
-            Assert.AreEqual("AED", result["code"]);
+            var result = dic["UAE Dirham"];
+            Assert.AreEqual("AED", result.code);
         }
     }
 }

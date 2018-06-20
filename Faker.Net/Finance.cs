@@ -53,8 +53,8 @@ namespace Faker
         public string GetCurrencyCode()
         {
             string randomKey = GetCurrencyName();
-            dynamic dic = locale.Currency[randomKey];
-            return dic["code"];
+            var dic = locale.Currency[randomKey];
+            return dic.code;
         }
 
         public string GetCurrencySymbol()
@@ -63,8 +63,8 @@ namespace Faker
             while (string.IsNullOrWhiteSpace(symbol))
             {
                 string randomKey = GetCurrencyName();
-                dynamic dic = locale.Currency[randomKey];
-                symbol = dic["symbol"];
+                var dic = locale.Currency[randomKey];
+                symbol = dic.symbol;
             }
             return symbol;
         }

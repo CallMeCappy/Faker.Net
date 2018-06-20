@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2018
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Faker.Net", "Faker.Net\Faker.Net.csproj", "{69E1708F-61CD-4A67-B1D2-7D32EEF78C4E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Faker.Net", "Faker.Net\Faker.Net.csproj", "{69E1708F-61CD-4A67-B1D2-7D32EEF78C4E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Faker.Net.Test", "Faker.Net.Test\Faker.Net.Test.csproj", "{C016D290-EA91-4D15-B50C-D155038D8E9F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Faker.Net.Test", "Faker.Net.Test\Faker.Net.Test.csproj", "{C016D290-EA91-4D15-B50C-D155038D8E9F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Faker.Net.Example", "Faker.Net.Example\Faker.Net.Example.csproj", "{B86EFB70-0370-4BD0-9577-DA8C855961DF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Faker.Net.Example", "Faker.Net.Example\Faker.Net.Example.csproj", "{B86EFB70-0370-4BD0-9577-DA8C855961DF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,5 +30,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {75037C7B-A6BF-42B2-8600-EBA32C2FC69C}
 	EndGlobalSection
 EndGlobal
